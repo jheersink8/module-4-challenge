@@ -1,3 +1,84 @@
-*{
-    background-color: black;
+:root {
+    --fontcolor: #0F1035;
+    --firstbackground: #DCF2F1;
+    --borders: #7FC7D9;
+    --lastbackgroundtop: #365486;
+    --lastbackgroundbottom: #94abd1;
+}
+
+* {
+    margin: 0px;
+    color: var(--fontcolor);
+}
+
+body{
+    margin: 0px;
+    padding-top: 20px;
+    box-sizing: border-box;
+    background-image:linear-gradient(
+        var(--lastbackgroundtop) 0%,
+       var(--lastbackgroundbottom) 100%
+    );
+    background-repeat:space;
+    height: 100vh;
+    width: 100vw;
+
+}
+
+.headerContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+
+header{
+    background-color: var(--firstbackground);
+    padding: 25px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    width: fit-content;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.introContainer{
+    display: flex;
+    justify-content: center;
+    margin: 100px 150px 100px 150px;
+}
+
+.introContainer h2{
+    background-color: var(--firstbackground);
+    font-size: 35px;
+    padding: 25px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    width: fit-content;
+    text-align: center; 
+}
+
+.introContainer h2 p {
+    font-size: 23px;
+    padding: 25px;
+    width: fit-content;
+    text-align: center;
+}
+
+.frontButtonsGroup{
+ display: flex;
+ justify-content: space-evenly;
+
+} 
+
+.frontButton{
+    color:var(--firstbackground);
+    background-color: var(--fontcolor);
+    border: 2px solid var(--borders);
+    border-radius: 8px;
+    height: 70px;
+    width: 230px;
+    font-size: 20px;
+    font-weight:400;
 }
