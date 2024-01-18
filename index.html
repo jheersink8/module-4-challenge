@@ -4,36 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>JavaScript Quiz</title>
 </head>
 
 <body>
-    <section class="headerContainer">
-        <header>JavaScript Quiz</header>
-    </section>
-
-    <main class="introContainer">
-        <h2 id="questionNumber">
-            Welcome Students!
-        </h2>
-            <p id="question">
-                This quiz is meant to test your knowledge of JavaScript basics. You will have 5 minutes to answer 20
-                randomized questions. But be warned! Each question you answer wrong subtracts 15 seconds from the timer.
-                Make it to the end either by answering the last question or running out of time. Good luck!
-            </p>  
+    <main>
+        <Section>
+            <h3 class="questionNumberOutput">Question #</h3>
+            <h3 class="questionOutput"></h3>
+        </Section>
+        <section class="buttonSelection">
+            <button class="buttonChoice" id="buttonA">Choice1</button>
+            <button class="buttonChoice" id="buttonB">Choice2</button>
+            <button class="buttonChoice" id="buttonC">Choice3</button>
+            <button class="buttonChoice" id="buttonD">Choice4</button>
+        </section>
     </main>
-
-    <section class="frontButtonsGroup">
-        <button id="begin" class = frontButton>Begin Quiz</button>
-        <button id="highScore"class = frontButton>High Scores</button>
-    </section>
-
-    <!-- footer for testing. DELETE before publishing. -->
-<footer id="footerTest"></footer>
+    <script src="assets/javascript/script.js"></script>
 </body>
-
-<script src="assets/javascript/script.js"></script>
 
 </html>
