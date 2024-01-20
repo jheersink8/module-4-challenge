@@ -22,6 +22,8 @@ var quizGroup = document.querySelector(".quizGroup");
 var buttonChoices = document.querySelectorAll(".buttonChoice");
 var timeStartEl = document.getElementById("timeStart");
 var quizLengthEl = document.getElementById("quizLength");
+var highScores = document.querySelector("#highScores");
+var initialsTxt = document.querySelector(".initials");
 var quizLength = questionList.questionNumber.length;
 
 //Dynamic output text to homescreen//
@@ -33,6 +35,7 @@ function presentQuestion(x) {
     // Present the question number and question//
     welcomeMessage.setAttribute("class", "welcomeMessage hide");
     quizGroup.setAttribute("class", "quizGroup show");
+    advanceQuiz.textContent = "Next Question"
     questionNumberOutput.textContent = questionList.questionNumber[x];
     questionOutput.textContent = questionList.question[x];
 
@@ -71,6 +74,7 @@ advanceQuiz.addEventListener("click", function () {
         if (advanceQuiz.getAttribute("data-status") === "answered") {
             presentQuestion(count++);
             advanceQuiz.setAttribute("data-status", "unanswered");
+            highScores.setAttribute("class", "highScores hide");
             selectionResult.textContent = "";
         }
         return;
@@ -79,19 +83,29 @@ advanceQuiz.addEventListener("click", function () {
     // Function to calculate final score.//
     function calcScore() {
         finalScore = Math.round(score / (quizLength) * 100);
-        selectionResult.textContent = "You scored a " + finalScore + "% on the quiz. Enter your initials below to add this score to the high score page. Click Return Home to go back to the home screen and take the quiz again for a higher score!";
+        selectionResult.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click Submit Score to return to the home screen.";
         count++;
         quizGroup.setAttribute("class", "quizGroup hide");
+        initialsTxt.setAttribute("class", "initials")
+        advanceQuiz.textContent = "Submit Score"
         return;
     };
 
     // Function to return user to homescreen.//
     function returnHome() {
-        count = 0;
-        score = 0;
-        welcomeMessage.setAttribute("class", "welcomeMessage");
-        selectionResult.textContent = "";
-        return;
+        if (initialsTxt.value === "") {
+            alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen.")
+        } else {
+            count = 0;
+            score = 0;
+            welcomeMessage.setAttribute("class", "welcomeMessage");
+            selectionResult.textContent = "";
+            advanceQuiz.textContent = "Begin Quiz";
+            initialsTxt.setAttribute("class", "initials hide");
+            initialsTxt.value = "";
+            highScores.setAttribute("class", "highScores");
+            return;
+        };
     };
 });
 
