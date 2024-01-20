@@ -9,20 +9,29 @@
 </head>
 
 <body>
-    <section>
-        <button id="advanceQuiz" data-status="answered">Begin Quiz/Next Question</button>
-        <p id="selectionResult"></p>
-    </section>
     <main>
-        <Section>
-            <h3 class="questionNumberOutput">Question #</h3>
+        <section class="welcomeMessage">
+            <h3>
+                This quiz is meant to test your knowledge of JavaScript basics. You will
+                have <span id="timeStart"></span> seconds to answer <span id="quizLength"></span> questions. But be
+                warned! Each question you answer wrong subtracts 15 seconds from the timer.
+                </br>
+                </br>
+                Make it to the end either by answering the last question or running out of time. Good luck!</h3>
+        </section>
+        <section class="quizGroup hide">
+            <h3 class="questionNumberOutput"></h3>
             <h3 class="questionOutput"></h3>
-        </Section>
-        <section class="buttonSelection">
-            <button class="buttonChoice" id="button1" data-answer="">Choice1</button>
-            <button class="buttonChoice" id="button2" data-answer="">Choice2</button>
-            <button class="buttonChoice" id="button3" data-answer="">Choice3</button>
-            <button class="buttonChoice" id="button4" data-answer="">Choice4</button>
+            <section class="buttonGroup">
+                <button class="buttonChoice" id="button1" data-answer="">Choice1</button>
+                <button class="buttonChoice" id="button2" data-answer="">Choice2</button>
+                <button class="buttonChoice" id="button3" data-answer="">Choice3</button>
+                <button class="buttonChoice" id="button4" data-answer="">Choice4</button>
+            </section>
+        </section>
+        <section>
+            <p id="selectionResult"></p>
+            <button id="advanceQuiz" data-status="answered">Begin Quiz/Next Question/Return Home</button>
         </section>
     </main>
     <script src="assets/javascript/script.js"></script>

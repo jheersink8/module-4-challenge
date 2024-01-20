@@ -2,8 +2,16 @@
     background-color: grey;
 }
 
-.buttonSelection{
+.buttonGroup{
     display:flex;
     flex-direction: column;
 
+}
+
+.hide{
+    display:none;
+}
+
+.show{
+    
 }
