@@ -1,5 +1,5 @@
 // NOTE TO QUIZ-MAKER: To add more questions to quiz, simply add the desired value at the end of each object array below using the syntax of -- , "Content" -- (minus the dashes). Also, modify the value of the timer in --var timer-- below. The page will dynamically update to accommodate the added questions and time parameters.// 
-var timerValue = 9;
+var timerValue = 90;
 var questionList = {
     questionNumber: ["Question 1", "Question 2", "Question 3"],
     question: ["What is your favorite number", "What is your favorite color?", "What is your favorite state of matter?"],
@@ -147,7 +147,6 @@ function enterScore() {
     };
 };
 
-
 // Check the data-answer value for correct or incorrect and display result to user. Should only work once per question.//
 buttonChoices.forEach(function (buttonChoice) {
     buttonChoice.addEventListener("click", function (event) {
@@ -159,6 +158,7 @@ buttonChoices.forEach(function (buttonChoice) {
                 score++;
             } else {
                 selectionResult.textContent = "WRONG! Click \"Next Question\" button to advance.";
+                timerPenalty();
                 advanceQuizBtn.setAttribute("data-status", "answered");
             }
         }
@@ -251,12 +251,14 @@ function init() {
 }
 init();
 
-// --------------------------Timer Practice--------------------------//
+// Timer countdown function//
 function countdown() {
     var timeInterval = setInterval(function () {
         timer--;
         timeLeft.textContent = timer;
+        if (selectionResult) {
 
+        }
         if (timer === 0) {
             clearInterval(timeInterval);
             count = quizLength;
@@ -270,6 +272,11 @@ function countdown() {
     }, 1000);
 };
 
+function timerPenalty() {
+    var currentTime = timeLeft.textContent
+    var penalty = Math.max(currentTime - 15, 0);
+    timeLeft.textContent = penalty;
+};
 
 
 
