@@ -84,7 +84,7 @@ advanceQuiz.addEventListener("click", function () {
     // Function to calculate final score.//
     function calcScore() {
         finalScore = Math.round(score / (quizLength) * 100);
-        selectionResult.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click Submit Score to return to the home screen.";
+        selectionResult.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
         count++;
         quizGroup.setAttribute("class", "quizGroup hide");
         initialsTxt.setAttribute("class", "initials")
@@ -97,34 +97,15 @@ advanceQuiz.addEventListener("click", function () {
         if (initialsTxt.value === "") {
             alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen.")
         } else {
-            // Submit high score//
-            // event.preventDefault();
-
-            var score = {
-                Initials: initialsTxt.value,
-                Score: finalScore,
-                Time: timer,
-                    }
-
-
-            // localStorage.setItem("score",
-            localStorage.setItem("score", JSON.stringify(score));
-
-            // TESTING TO DELETE//
-            var test = (JSON.stringify(score));
-            console.log(test);
-            // --------------END-------------------//
-
             // Reset default values//
             count = 0;
             score = 0;
             initialsTxt.setAttribute("class", "initials hide");
             welcomeMessage.setAttribute("class", "welcomeMessage");
             highScores.setAttribute("class", "highScores");
-            initialsTxt.value = "";
+            // initialsTxt.value = "";
             selectionResult.textContent = "";
             advanceQuiz.textContent = "Begin Quiz";
-
             return;
         };
     };
@@ -170,3 +151,35 @@ buttonChoices.forEach(function (buttonChoice) {
 //     incorrectAnswer2: ["2", "Pink", "Liquid"],
 //     incorrectAnswer3: ["3", "Yellow", "Plasma"]
 // };
+
+
+function save() {
+    var score = {
+        initials: initialsTxt.value,
+        score: finalScore,
+        time: timer,
+    }
+    localStorage.setItem("score", JSON.stringify(score));
+    var test = (JSON.stringify(score));
+    console.log(test);
+}
+
+function load() {
+    var lastScore = JSON.parse(localStorage.getItem("score"));
+    if (lastScore !== null) {
+        document.getElementById("userInitials").textContent = lastScore.initials;
+        document.getElementById("userScore").textContent = lastScore.score;
+        document.getElementById("userTime").textContent = lastScore.time;
+    }
+}
+
+highScores.addEventListener("click", function (event) {
+    event.preventDefault();
+    save();
+    load();
+});
+
+function init() {
+    load();
+}
+init();
