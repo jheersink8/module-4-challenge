@@ -1,5 +1,5 @@
 // NOTE TO QUIZ-MAKER: To add more questions to quiz, simply add the desired value at the end of each object array below using the syntax of -- , "Content" -- (minus the dashes). Also, modify the value of the timer in --var timer-- below. The page will dynamically update to accommodate the added questions and time parameters.// 
-var timer = 90;
+var timerValue = 9;
 var questionList = {
     questionNumber: ["Question 1", "Question 2", "Question 3"],
     question: ["What is your favorite number", "What is your favorite color?", "What is your favorite state of matter?"],
@@ -23,6 +23,7 @@ document.getElementById("quizLength").textContent = quizLength;
 document.getElementById("timeStart").textContent = timer;
 
 // Timer variables//
+var timer = timerValue;
 var timeLeft = document.getElementById("timeLeft");
 timeLeft.textContent = timer;
 
@@ -99,49 +100,53 @@ advanceQuizBtn.addEventListener("click", function () {
     } else {
         enterScore();
     }
-
-    // Function to begin quiz and then advance questions. Should only work once per question.//
-    function advance() {
-        if (advanceQuizBtn.getAttribute("data-status") === "answered") {
-            presentQuestion(count++);
-            selectionResult.textContent = "";
-            advanceQuizBtn.setAttribute("data-status", "unanswered");
-            highScoresBtn.setAttribute("class", "button hide");
-        }
-        return;
-    };
-
-    // Function to calculate final score.//
-    function calcScore() {
-        finalScore = Math.round(score / (quizLength) * 100);
-        userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
-        count++;
-        advanceQuizBtn.textContent = "Submit Score"
-        selectionResult.textContent = "";
-        quizGroup.setAttribute("class", "quizGroup hide");
-        resultsGroup.setAttribute("class", "initials")
-        return;
-    };
-
-    // Function to return user to homescreen.//
-    function enterScore() {
-        if (initialsTxt.value === "") {
-            alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen. You can view your high scores from the home screen.")
-        } else {
-            stageHOF();
-            // Reset default values//
-            count = 0;
-            score = 0;
-            initialsTxt.value = "";
-            selectionResult.textContent = "";
-            advanceQuizBtn.textContent = "Begin Quiz";
-            resultsGroup.setAttribute("class", "initials hide");
-            welcomeMessage.setAttribute("class", "welcomeMessage");
-            highScoresBtn.setAttribute("class", "button");
-            return;
-        };
-    };
 });
+
+// Function to begin quiz and then advance questions. Should only work once per question.//
+function advance() {
+    if (advanceQuizBtn.getAttribute("data-status") === "answered") {
+        presentQuestion(count++);
+        selectionResult.textContent = "";
+        advanceQuizBtn.setAttribute("data-status", "unanswered");
+        highScoresBtn.setAttribute("class", "button hide");
+    }
+    return;
+};
+
+// Function to calculate final score.//
+function calcScore() {
+    finalScore = Math.round(score / (quizLength) * 100);
+    userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
+    count++;
+    advanceQuizBtn.textContent = "Submit Score"
+    selectionResult.textContent = "";
+    quizGroup.setAttribute("class", "quizGroup hide");
+    resultsGroup.setAttribute("class", "results");
+    advanceQuizBtn.setAttribute("data-status", "answered")
+    return;
+};
+
+// Function to return user to homescreen.//
+function enterScore() {
+    if (initialsTxt.value === "") {
+        alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen. You can view your high scores from the home screen.")
+    } else {
+        stageHOF();
+        // Reset default values//
+        count = 0;
+        score = 0;
+        timer = timerValue;
+        initialsTxt.value = "";
+        selectionResult.textContent = "";
+        advanceQuizBtn.textContent = "Begin Quiz";
+        timeLeft.textContent = timer;
+        resultsGroup.setAttribute("class", "results hide");
+        welcomeMessage.setAttribute("class", "welcomeMessage");
+        highScoresBtn.setAttribute("class", "button");
+        return;
+    };
+};
+
 
 // Check the data-answer value for correct or incorrect and display result to user. Should only work once per question.//
 buttonChoices.forEach(function (buttonChoice) {
@@ -253,6 +258,13 @@ function countdown() {
         timeLeft.textContent = timer;
 
         if (timer === 0) {
+            clearInterval(timeInterval);
+            count = quizLength;
+            calcScore();
+            console.log(count);
+        }
+
+        if (count > quizLength) {
             clearInterval(timeInterval);
         }
     }, 1000);
