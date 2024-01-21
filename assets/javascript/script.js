@@ -92,18 +92,21 @@ advanceQuiz.addEventListener("click", function () {
         return;
     };
 
+
+
     // Function to return user to homescreen.//
-    function enterScore(event) {
+    function enterScore() {
         if (initialsTxt.value === "") {
             alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen.")
         } else {
+            stageHOF();
             // Reset default values//
             count = 0;
             score = 0;
             initialsTxt.setAttribute("class", "initials hide");
             welcomeMessage.setAttribute("class", "welcomeMessage");
             highScores.setAttribute("class", "highScores");
-            // initialsTxt.value = "";
+            initialsTxt.value = "";
             selectionResult.textContent = "";
             advanceQuiz.textContent = "Begin Quiz";
             return;
@@ -128,9 +131,6 @@ buttonChoices.forEach(function (buttonChoice) {
     })
 });
 
-
-
-
 // Production question object//
 // var questionList = {
 //     questionNumber: ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5", "Question 6", "Question 7", "Question 8", "Question 9", "Question 10"],
@@ -152,34 +152,69 @@ buttonChoices.forEach(function (buttonChoice) {
 //     incorrectAnswer3: ["3", "Yellow", "Plasma"]
 // };
 
+// Output List Variables for Scoreboard//
+var userInitials = document.querySelector("#userInitials");
+var userScore = document.querySelector("#userScore");
+var userTime = document.querySelector("#userTime");
+
+// Object Values//
+var hof = {
+    initialsObj: [],
+    scoreObj: [],
+    timeObj: [],
+}
+
+function stageHOF() {
+    var initialsList = document.querySelector("#inputText").value;
+    var scoreList = finalScore;
+    var timeList = timer;
+
+    if (initialsList === "") {
+        return;
+    } 
+    hof.initialsObj.push(initialsList);
+    hof.scoreObj.push(scoreList);
+    hof.timeObj.push(timeList);
+
+    save();
+    load();
+};
 
 function save() {
-    var score = {
-        initials: initialsTxt.value,
-        score: finalScore,
-        time: timer,
-    }
-    localStorage.setItem("score", JSON.stringify(score));
-    var test = (JSON.stringify(score));
-    console.log(test);
+localStorage.setItem("hof", JSON.stringify(hof));
 }
 
 function load() {
-    var lastScore = JSON.parse(localStorage.getItem("score"));
-    if (lastScore !== null) {
-        document.getElementById("userInitials").textContent = lastScore.initials;
-        document.getElementById("userScore").textContent = lastScore.score;
-        document.getElementById("userTime").textContent = lastScore.time;
+    userInitials.innerHTML = "";
+    for (var i = 0; i<hof.initialsObj.length; i++) {
+        var initialsOut = hof.initialsObj[i];
+        var li = document.createElement("li");
+        li.textContent = initialsOut;
+        userInitials.appendChild(li);
+    }
+
+    userScore.innerHTML = "";
+    for (var i = 0; i<hof.scoreObj.length; i++) {
+        var scoreOut = hof.scoreObj[i];
+        var li = document.createElement("li");
+        li.textContent = scoreOut;
+        userScore.appendChild(li);
+    }
+
+    userTime.innerHTML = "";
+    for (var i = 0; i<hof.timeObj.length; i++) {
+        var timeOut = hof.timeObj[i];
+        var li = document.createElement("li");
+        li.textContent = timeOut;
+        userTime.appendChild(li);
     }
 }
 
-highScores.addEventListener("click", function (event) {
-    event.preventDefault();
-    save();
-    load();
-});
-
 function init() {
+    var oldHOF = JSON.parse(localStorage.getItem("hof"));
+    if (oldHOF !== null) {
+        hof = oldHOF;
+    }
     load();
 }
-init();
+init(); 

@@ -35,19 +35,30 @@
             <p id="selectionResult"></p>
             <button id="advanceQuiz" data-status="answered">Begin Quiz</button>
             <button id="highScores">View High Scores</button>
-
+            <button id="clear hide">Clear Scoreboard</button>
         </section>
 
         <section>
- 
-                <input class="initials hide" placeholder="Enter your initials here & click submit.">
-     
+
+            <input class="initials hide" id="inputText" placeholder="Enter your initials here & click submit.">
+
         </section>
 
-        <section class="highScoresList">
-            <p id="userInitials">Initials</p>
-            <p id="userScore">Score</p>
-            <p id="userTime">Time Remaining</p>
+        <section class="highScoresList hide">
+            <div>
+                <p>Initials</p>
+                <ul id="userInitials"></ul>
+            </div>
+
+            <div>
+                <p>Score</p>
+                <ul id="userScore"></ul>
+            </div>
+
+            <div>
+                <p>Time Remaining</p>
+                <ul id="userTime"></ul>
+            </div>
         </section>
 
     </main>
