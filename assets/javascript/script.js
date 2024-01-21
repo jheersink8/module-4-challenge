@@ -23,6 +23,7 @@ document.getElementById("quizLength").textContent = quizLength;
 document.getElementById("timeStart").textContent = timer;
 
 // Timer variables//
+var timerBox = document.querySelector(".timerBox");
 var timer = timerValue;
 var timeLeft = document.getElementById("timeLeft");
 timeLeft.textContent = timer;
@@ -109,6 +110,7 @@ function advance() {
         selectionResult.textContent = "";
         advanceQuizBtn.setAttribute("data-status", "unanswered");
         highScoresBtn.setAttribute("class", "button hide");
+        timerBox.setAttribute("class", "timerBox");
     }
     return;
 };
@@ -123,6 +125,7 @@ function calcScore() {
     quizGroup.setAttribute("class", "quizGroup hide");
     resultsGroup.setAttribute("class", "results");
     advanceQuizBtn.setAttribute("data-status", "answered")
+    timerBox.setAttribute("class", "timerBox hide")
     return;
 };
 
@@ -187,6 +190,9 @@ highScoresBtn.addEventListener("click", function () {
 // Clear button to clear high scores.//
 clearBtn.addEventListener("click", function () {
     localStorage.clear();
+    hof.initialsObj.splice(0, hof.initialsObj.length);
+    hof.scoreObj.splice(0, hof.scoreObj.length);
+    hof.timeObj.splice(0, hof.timeObj.length);
     userInitials.innerHTML = "";
     userScore.innerHTML = "";
     userTime.innerHTML = "";
@@ -263,7 +269,6 @@ function countdown() {
             clearInterval(timeInterval);
             count = quizLength;
             calcScore();
-            console.log(count);
         }
 
         if (count > quizLength) {
@@ -275,10 +280,8 @@ function countdown() {
 function timerPenalty() {
     var currentTime = timeLeft.textContent
     var penalty = Math.max(currentTime - 15, 0);
-    timeLeft.textContent = penalty;
+    timer = penalty;
 };
-
-
 
 // Production question object//
 // var questionList = {
@@ -289,7 +292,6 @@ function timerPenalty() {
 //     incorrectAnswer2: ["var wrong;", "i<variableName.length", "-1", "push", "trim", "split", "All query selectors for buttons created in HTML", "Change the HTML structure", "Click", "Make the CSS available to the user"],
 //     incorrectAnswer3: ["var those;", "i++", "It is defined by the user", "split", "split", "unshift", "All saved local storage values", "Reduce the number of JS variables ", "Change", "Make sites more accessible for screen readers"]
 // };
-
 
 //Test question object//
 // var questionList = {
