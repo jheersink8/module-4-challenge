@@ -9,15 +9,24 @@
 </head>
 
 <body>
+    <header>
+        <h1>JavaScript Quiz</h1>
+    </header>
+
     <!-- Intro message that is only present on start screen -->
     <section class="welcomeMessage">
-        <h3>This quiz is meant to test your knowledge of JavaScript basics. You will have <span id="timeStart"></span>
+        <h2>This quiz is meant to test your knowledge of JavaScript basics. You will have <span id="timeStart"></span>
             seconds to answer <span id="quizLength"></span> questions. But be
             warned! Each question you answer wrong subtracts 15 seconds from the timer.
             </br>
             </br>
-            Make it to the end either by answering the last question or running out of time. Good luck!</h3>
+            Make it to the end either by answering the last question or running out of time. Good luck!</h2>
     </section>
+
+<section class="timerBox">
+    <h3>Time Remaining</h3>
+    <p id="timeLeft"></p>
+</section>
 
     <!-- Controller for quiz. Displays question number, question, and multiple choice options. -->
     <section class="quizGroup hide">
@@ -49,7 +58,7 @@
 
     <!-- User results page -->
     <section class="results hide">
-        <h3>Quiz Results</h3>
+        <h4>Quiz Results</h4>
         <p id="userPrintOut"></p>
         <input id="inputText" placeholder="Enter your initials here & click submit.">
     </section>

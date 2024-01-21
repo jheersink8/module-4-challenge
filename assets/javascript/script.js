@@ -22,6 +22,10 @@ var quizLength = questionList.questionNumber.length;
 document.getElementById("quizLength").textContent = quizLength;
 document.getElementById("timeStart").textContent = timer;
 
+// Timer variables//
+var timeLeft = document.getElementById("timeLeft");
+timeLeft.textContent = timer;
+
 // Quiz control variables//
 var quizGroup = document.querySelector(".quizGroup");
 var questionNumberOutput = document.querySelector(".questionNumberOutput");
@@ -85,7 +89,10 @@ function presentQuestion(x) {
 
 // Controls for advanceQuiz button. Function is contextual depending on user location in quiz.//
 advanceQuizBtn.addEventListener("click", function () {
-    if (count < quizLength) {
+    if (count === 0) {
+        advance();
+        countdown();
+    } else if (count > 0 && count < quizLength) {
         advance();
     } else if (count === quizLength) {
         calcScore();
@@ -185,7 +192,7 @@ function stageHOF() {
     var initialsList = document.querySelector("#inputText").value;
     var scoreList = finalScore;
     var timeList = timer;
-    
+
     if (initialsList === "") {
         return;
     }
@@ -237,7 +244,19 @@ function init() {
     }
     load();
 }
-init(); 
+init();
+
+// --------------------------Timer Practice--------------------------//
+function countdown() {
+    var timeInterval = setInterval(function () {
+        timer--;
+        timeLeft.textContent = timer;
+
+        if (timer === 0) {
+            clearInterval(timeInterval);
+        }
+    }, 1000);
+};
 
 
 
