@@ -1,5 +1,5 @@
 // NOTE TO QUIZ-MAKER: To add more questions to quiz, simply add the desired value at the end of each object array below using the syntax of -- , "Content" -- (minus the dashes). Also, modify the value of the timer in --var timer-- below. The page will dynamically update to accommodate the added questions and time parameters.// 
-var timer = 90;
+var timerValue = 90;
 var questionList = {
     questionNumber: ["Question 1", "Question 2", "Question 3"],
     question: ["What is your favorite number", "What is your favorite color?", "What is your favorite state of matter?"],
@@ -21,6 +21,12 @@ var welcomeMessage = document.querySelector(".welcomeMessage");
 var quizLength = questionList.questionNumber.length;
 document.getElementById("quizLength").textContent = quizLength;
 document.getElementById("timeStart").textContent = timer;
+
+// Timer variables//
+var timerBox = document.querySelector(".timerBox");
+var timer = timerValue;
+var timeLeft = document.getElementById("timeLeft");
+timeLeft.textContent = timer;
 
 // Quiz control variables//
 var quizGroup = document.querySelector(".quizGroup");
@@ -85,56 +91,64 @@ function presentQuestion(x) {
 
 // Controls for advanceQuiz button. Function is contextual depending on user location in quiz.//
 advanceQuizBtn.addEventListener("click", function () {
-    if (count < quizLength) {
+    if (count === 0) {
+        advance();
+        countdown();
+    } else if (count > 0 && count < quizLength) {
         advance();
     } else if (count === quizLength) {
         calcScore();
     } else {
         enterScore();
     }
-
-    // Function to begin quiz and then advance questions. Should only work once per question.//
-    function advance() {
-        if (advanceQuizBtn.getAttribute("data-status") === "answered") {
-            presentQuestion(count++);
-            selectionResult.textContent = "";
-            advanceQuizBtn.setAttribute("data-status", "unanswered");
-            highScoresBtn.setAttribute("class", "button hide");
-        }
-        return;
-    };
-
-    // Function to calculate final score.//
-    function calcScore() {
-        finalScore = Math.round(score / (quizLength) * 100);
-        userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
-        count++;
-        advanceQuizBtn.textContent = "Submit Score"
-        selectionResult.textContent = "";
-        quizGroup.setAttribute("class", "quizGroup hide");
-        resultsGroup.setAttribute("class", "initials")
-        return;
-    };
-
-    // Function to return user to homescreen.//
-    function enterScore() {
-        if (initialsTxt.value === "") {
-            alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen. You can view your high scores from the home screen.")
-        } else {
-            stageHOF();
-            // Reset default values//
-            count = 0;
-            score = 0;
-            initialsTxt.value = "";
-            selectionResult.textContent = "";
-            advanceQuizBtn.textContent = "Begin Quiz";
-            resultsGroup.setAttribute("class", "initials hide");
-            welcomeMessage.setAttribute("class", "welcomeMessage");
-            highScoresBtn.setAttribute("class", "button");
-            return;
-        };
-    };
 });
+
+// Function to begin quiz and then advance questions. Should only work once per question.//
+function advance() {
+    if (advanceQuizBtn.getAttribute("data-status") === "answered") {
+        presentQuestion(count++);
+        selectionResult.textContent = "";
+        advanceQuizBtn.setAttribute("data-status", "unanswered");
+        highScoresBtn.setAttribute("class", "button hide");
+        timerBox.setAttribute("class", "timerBox");
+    }
+    return;
+};
+
+// Function to calculate final score.//
+function calcScore() {
+    finalScore = Math.round(score / (quizLength) * 100);
+    userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
+    count++;
+    advanceQuizBtn.textContent = "Submit Score"
+    selectionResult.textContent = "";
+    quizGroup.setAttribute("class", "quizGroup hide");
+    resultsGroup.setAttribute("class", "results");
+    advanceQuizBtn.setAttribute("data-status", "answered")
+    timerBox.setAttribute("class", "timerBox hide")
+    return;
+};
+
+// Function to return user to homescreen.//
+function enterScore() {
+    if (initialsTxt.value === "") {
+        alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen. You can view your high scores from the home screen.")
+    } else {
+        stageHOF();
+        // Reset default values//
+        count = 0;
+        score = 0;
+        timer = timerValue;
+        initialsTxt.value = "";
+        selectionResult.textContent = "";
+        advanceQuizBtn.textContent = "Begin Quiz";
+        timeLeft.textContent = timer;
+        resultsGroup.setAttribute("class", "results hide");
+        welcomeMessage.setAttribute("class", "welcomeMessage");
+        highScoresBtn.setAttribute("class", "button");
+        return;
+    };
+};
 
 // Check the data-answer value for correct or incorrect and display result to user. Should only work once per question.//
 buttonChoices.forEach(function (buttonChoice) {
@@ -147,6 +161,7 @@ buttonChoices.forEach(function (buttonChoice) {
                 score++;
             } else {
                 selectionResult.textContent = "WRONG! Click \"Next Question\" button to advance.";
+                timerPenalty();
                 advanceQuizBtn.setAttribute("data-status", "answered");
             }
         }
@@ -175,6 +190,9 @@ highScoresBtn.addEventListener("click", function () {
 // Clear button to clear high scores.//
 clearBtn.addEventListener("click", function () {
     localStorage.clear();
+    hof.initialsObj.splice(0, hof.initialsObj.length);
+    hof.scoreObj.splice(0, hof.scoreObj.length);
+    hof.timeObj.splice(0, hof.timeObj.length);
     userInitials.innerHTML = "";
     userScore.innerHTML = "";
     userTime.innerHTML = "";
@@ -185,7 +203,7 @@ function stageHOF() {
     var initialsList = document.querySelector("#inputText").value;
     var scoreList = finalScore;
     var timeList = timer;
-    
+
     if (initialsList === "") {
         return;
     }
@@ -237,10 +255,33 @@ function init() {
     }
     load();
 }
-init(); 
+init();
 
+// Timer countdown function//
+function countdown() {
+    var timeInterval = setInterval(function () {
+        timer--;
+        timeLeft.textContent = timer;
+        if (selectionResult) {
 
+        }
+        if (timer === 0) {
+            clearInterval(timeInterval);
+            count = quizLength;
+            calcScore();
+        }
 
+        if (count > quizLength) {
+            clearInterval(timeInterval);
+        }
+    }, 1000);
+};
+
+function timerPenalty() {
+    var currentTime = timeLeft.textContent
+    var penalty = Math.max(currentTime - 15, 0);
+    timer = penalty;
+};
 
 // Production question object//
 // var questionList = {
@@ -251,7 +292,6 @@ init();
 //     incorrectAnswer2: ["var wrong;", "i<variableName.length", "-1", "push", "trim", "split", "All query selectors for buttons created in HTML", "Change the HTML structure", "Click", "Make the CSS available to the user"],
 //     incorrectAnswer3: ["var those;", "i++", "It is defined by the user", "split", "split", "unshift", "All saved local storage values", "Reduce the number of JS variables ", "Change", "Make sites more accessible for screen readers"]
 // };
-
 
 //Test question object//
 // var questionList = {
