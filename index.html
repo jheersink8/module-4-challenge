@@ -9,60 +9,59 @@
 </head>
 
 <body>
-    <main>
-        <section class="welcomeMessage">
-            <h3>This quiz is meant to test your knowledge of JavaScript basics. You will have <span
-                    id="timeStart"></span> seconds to answer <span id="quizLength"></span> questions. But be
-                warned! Each question you answer wrong subtracts 15 seconds from the timer.
-                </br>
-                </br>
-                Make it to the end either by answering the last question or running out of time. Good luck!</h3>
+    <!-- Intro message that is only present on start screen -->
+    <section class="welcomeMessage">
+        <h3>This quiz is meant to test your knowledge of JavaScript basics. You will have <span id="timeStart"></span>
+            seconds to answer <span id="quizLength"></span> questions. But be
+            warned! Each question you answer wrong subtracts 15 seconds from the timer.
+            </br>
+            </br>
+            Make it to the end either by answering the last question or running out of time. Good luck!</h3>
+    </section>
+
+    <!-- Controller for quiz. Displays question number, question, and multiple choice options. -->
+    <section class="quizGroup hide">
+        <h3 class="questionNumberOutput"></h3>
+        <h3 class="questionOutput"></h3>
+        <section class="buttonGroup">
+            <button class="buttonChoice" data-answer="">Choice1</button>
+            <button class="buttonChoice" data-answer="">Choice2</button>
+            <button class="buttonChoice" data-answer="">Choice3</button>
+            <button class="buttonChoice" data-answer="">Choice4</button>
         </section>
+    </section>
 
-        <section class="quizGroup hide">
-            <h3 class="questionNumberOutput"></h3>
-            <h3 class="questionOutput"></h3>
-            <section class="buttonGroup">
-                <button class="buttonChoice" id="button1" data-answer="">Choice1</button>
-                <button class="buttonChoice" id="button2" data-answer="">Choice2</button>
-                <button class="buttonChoice" id="button3" data-answer="">Choice3</button>
-                <button class="buttonChoice" id="button4" data-answer="">Choice4</button>
-            </section>
-        </section>
+    <!-- High Score display area. Hidden when page loads. Only to be accessible from welcome message screen -->
+    <section class="highScoresList hide" data-visibility="hide">
+        <div>
+            <p>Initials</p>
+            <ul id="userInitials"></ul>
+        </div>
+        <div>
+            <p>Score</p>
+            <ul id="userScore"></ul>
+        </div>
+        <div>
+            <p>Time Remaining</p>
+            <ul id="userTime"></ul>
+        </div>
+    </section>
 
-        <section class="highScoresList hide" data-visibility="hide">
-            <div>
-                <p>Initials</p>
-                <ul id="userInitials"></ul>
-            </div>
+    <!-- User results page -->
+    <section class="results hide">
+        <h3>Quiz Results</h3>
+        <p id="userPrintOut"></p>
+        <input id="inputText" placeholder="Enter your initials here & click submit.">
+    </section>
 
-            <div>
-                <p>Score</p>
-                <ul id="userScore"></ul>
-            </div>
+    <!-- Button Controls. Should always be at bottom of page. -->
+    <section>
+        <p id="selectionResult"></p>
+        <button id="advanceQuiz" class="button" data-status="answered">Begin Quiz</button>
+        <button id="highScores" class="button">View High Scores</button>
+        <button id="clear" class="button hide">Clear Scoreboard</button>
+    </section>
 
-            <div>
-                <p>Time Remaining</p>
-                <ul id="userTime"></ul>
-            </div>
-        </section>
-
-
-
-        <section class="initials hide">
-            <h3>Quiz Results</h3>
-            <p id="userPrintOut"></p>
-            <input id="inputText" placeholder="Enter your initials here & click submit.">
-        </section>
-
-        <section>
-            <p id="selectionResult"></p>
-            <button id="advanceQuiz" class="button" data-status="answered">Begin Quiz</button>
-            <button id="highScores" class="button">View High Scores</button>
-            <button id="clear" class="button hide">Clear Scoreboard</button>
-        </section>
-
-    </main>
     <script src="assets/javascript/script.js"></script>
 </body>
 

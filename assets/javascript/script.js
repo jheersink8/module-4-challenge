@@ -26,7 +26,7 @@ var selectionResult = document.getElementById("selectionResult");
 var advanceQuizBtn = document.getElementById("advanceQuiz");
 var highScoresBtn = document.querySelector("#highScores");
 var initialsTxt = document.querySelector("#inputText");
-var resultsGroup = document.querySelector(".initials");
+var resultsGroup = document.querySelector(".results");
 var userPrintOut = document.querySelector("#userPrintOut");
 // Misc. variables for DRY and dynamic output//
 var quizLength = questionList.questionNumber.length;
