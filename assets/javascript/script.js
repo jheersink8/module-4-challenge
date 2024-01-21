@@ -10,23 +10,24 @@ var questionList = {
 };
 // -----------------------END OF CONTENT QUIZ MAKER SHOULD EDIT-----------------------//
 
-// Variable definitions// 
+// Variables//
+// Counter variables// 
 var count = 0;
 var score = 0;
+// Direct from HTML variables//
 var welcomeMessage = document.querySelector(".welcomeMessage");
-var advanceQuiz = document.getElementById("advanceQuiz");
-var selectionResult = document.getElementById("selectionResult");
-var questionNumberOutput = document.querySelector(".questionNumberOutput");
-var questionOutput = document.querySelector(".questionOutput");
-var quizGroup = document.querySelector(".quizGroup");
-var buttonChoices = document.querySelectorAll(".buttonChoice");
 var timeStartEl = document.getElementById("timeStart");
 var quizLengthEl = document.getElementById("quizLength");
+var quizGroup = document.querySelector(".quizGroup");
+var questionNumberOutput = document.querySelector(".questionNumberOutput");
+var questionOutput = document.querySelector(".questionOutput");
+var buttonChoices = document.querySelectorAll(".buttonChoice");
+var selectionResult = document.getElementById("selectionResult");
+var advanceQuiz = document.getElementById("advanceQuiz");
 var highScores = document.querySelector("#highScores");
 var initialsTxt = document.querySelector(".initials");
+// Misc. variables for DRY and dynamic output//
 var quizLength = questionList.questionNumber.length;
-
-//Dynamic output text to homescreen//
 quizLengthEl.textContent = quizLength;
 timeStartEl.textContent = timer;
 
@@ -66,7 +67,7 @@ advanceQuiz.addEventListener("click", function () {
     } else if (count === quizLength) {
         calcScore();
     } else {
-        returnHome();
+        enterScore();
     }
 
     // Function to begin quiz and then advance questions. Will only work once per question.//
@@ -92,18 +93,38 @@ advanceQuiz.addEventListener("click", function () {
     };
 
     // Function to return user to homescreen.//
-    function returnHome() {
+    function enterScore(event) {
         if (initialsTxt.value === "") {
             alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen.")
         } else {
+            // Submit high score//
+            // event.preventDefault();
+
+            var score = {
+                Initials: initialsTxt.value,
+                Score: finalScore,
+                Time: timer,
+                    }
+
+
+            // localStorage.setItem("score",
+            localStorage.setItem("score", JSON.stringify(score));
+
+            // TESTING TO DELETE//
+            var test = (JSON.stringify(score));
+            console.log(test);
+            // --------------END-------------------//
+
+            // Reset default values//
             count = 0;
             score = 0;
+            initialsTxt.setAttribute("class", "initials hide");
             welcomeMessage.setAttribute("class", "welcomeMessage");
+            highScores.setAttribute("class", "highScores");
+            initialsTxt.value = "";
             selectionResult.textContent = "";
             advanceQuiz.textContent = "Begin Quiz";
-            initialsTxt.setAttribute("class", "initials hide");
-            initialsTxt.value = "";
-            highScores.setAttribute("class", "highScores");
+
             return;
         };
     };
@@ -125,6 +146,7 @@ buttonChoices.forEach(function (buttonChoice) {
         }
     })
 });
+
 
 
 
