@@ -45,6 +45,13 @@ var advanceQuizBtn = document.getElementById("advanceQuiz");
 var highScoresBtn = document.querySelector("#highScores");
 var clearBtn = document.querySelector("#clear");
 
+// Object Values for scoreboard//
+var hof = {
+    initialsObj: [],
+    scoreObj: [],
+    timeObj: [],
+}
+
 // Function to present question and [randomized order of] multiple choice options on screen// 
 function presentQuestion(x) {
     // Present the question number and question on page.//
@@ -146,25 +153,26 @@ buttonChoices.forEach(function (buttonChoice) {
     })
 });
 
+// Toggle from high score page to home screen.//
 highScoresBtn.addEventListener("click", function () {
     if (highScoresList.getAttribute("data-visibility") === "hide") {
+        highScoresBtn.textContent = "Return Home";
+        clearBtn.setAttribute("class", "button");
         highScoresList.setAttribute("data-visibility", "show");
         highScoresList.setAttribute("class", "highScoresList");
-        highScoresBtn.textContent = "Return Home";
         welcomeMessage.setAttribute("class", "welcomeMessage hide");
         advanceQuizBtn.setAttribute("class", "button hide");
-        clearBtn.setAttribute("class", "button");
-
     } else {
+        highScoresBtn.textContent = "View High Scores";
+        clearBtn.setAttribute("class", "button hide");
         highScoresList.setAttribute("data-visibility", "hide");
         highScoresList.setAttribute("class", "highScoresList hide");
-        highScoresBtn.textContent = "View High Scores";
         welcomeMessage.setAttribute("class", "welcomeMessage");
         advanceQuizBtn.setAttribute("class", "button");
-        clearBtn.setAttribute("class", "button hide");
     }
 })
 
+// Clear button to clear high scores.//
 clearBtn.addEventListener("click", function () {
     localStorage.clear();
     userInitials.innerHTML = "";
@@ -172,57 +180,30 @@ clearBtn.addEventListener("click", function () {
     userTime.innerHTML = "";
 });
 
-// Production question object//
-// var questionList = {
-//     questionNumber: ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5", "Question 6", "Question 7", "Question 8", "Question 9", "Question 10"],
-//     question: ["Which of the following is not a proper variable in JavaScript?", "A for loop commonly contains all of the following except:", "What is the starting index point of an array?", "The __________ method will remove the white space from either side of a string.", "The __________ method will add an element to the end of an array.", "Which method would best be used to combine the values of two arrays into one array?", "Console.log(document.body) will return:", "The setAttribute method is used to:", "Which event listener listens for a key being pressed?", "The textContent property is used to:"],
-//     correctAnswer: ["var this;", "i=variableName.length", "0", "trim", "push", "concat", "Everything in the body element of the HTML", "Set the attribute value on an HTML element", "Keydown", "Set the text for an element"],
-//     incorrectAnswer1: ["var that;", "var i = 0", "1", "sort", "sort", "replace", "The user defined name on the tab in the browser", "Set the value of the inner HTML content", "Keyup", "Rewrite the element types"],
-//     incorrectAnswer2: ["var wrong;", "i<variableName.length", "-1", "push", "trim", "split", "All query selectors for buttons created in HTML", "Change the HTML structure", "Click", "Make the CSS available to the user"],
-//     incorrectAnswer3: ["var those;", "i++", "It is defined by the user", "split", "split", "unshift", "All saved local storage values", "Reduce the number of JS variables ", "Change", "Make sites more accessible for screen readers"]
-// };
-
-
-//Test question object//
-// var questionList = {
-//     questionNumber: ["Question 1", "Question 2", "Question 3"],
-//     question: ["What is your favorite number", "What is your favorite color?", "What is your favorite state of matter?"],
-//     correctAnswer: ["*0*", "*Blue*", "*Gas*"],
-//     incorrectAnswer1: ["1", "Red", "Solid"],
-//     incorrectAnswer2: ["2", "Pink", "Liquid"],
-//     incorrectAnswer3: ["3", "Yellow", "Plasma"]
-// };
-
-// Output List Variables for Scoreboard//
-
-
-// Object Values//
-var hof = {
-    initialsObj: [],
-    scoreObj: [],
-    timeObj: [],
-}
-
+// Function to save/load local data to high scroe screen.//
 function stageHOF() {
     var initialsList = document.querySelector("#inputText").value;
     var scoreList = finalScore;
     var timeList = timer;
-
+    
     if (initialsList === "") {
         return;
     }
+    // Send new score results to object hof//
     hof.initialsObj.push(initialsList);
     hof.scoreObj.push(scoreList);
     hof.timeObj.push(timeList);
-
+    // Save results and render on page//
     save();
     load();
 };
 
+// Function to save to local storage//
 function save() {
     localStorage.setItem("hof", JSON.stringify(hof));
 }
 
+// Function to load local storage save data. Create new li for each saved item in object.//
 function load() {
     userInitials.innerHTML = "";
     for (var i = 0; i < hof.initialsObj.length; i++) {
@@ -257,3 +238,27 @@ function init() {
     load();
 }
 init(); 
+
+
+
+
+// Production question object//
+// var questionList = {
+//     questionNumber: ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5", "Question 6", "Question 7", "Question 8", "Question 9", "Question 10"],
+//     question: ["Which of the following is not a proper variable in JavaScript?", "A for loop commonly contains all of the following except:", "What is the starting index point of an array?", "The __________ method will remove the white space from either side of a string.", "The __________ method will add an element to the end of an array.", "Which method would best be used to combine the values of two arrays into one array?", "Console.log(document.body) will return:", "The setAttribute method is used to:", "Which event listener listens for a key being pressed?", "The textContent property is used to:"],
+//     correctAnswer: ["var this;", "i=variableName.length", "0", "trim", "push", "concat", "Everything in the body element of the HTML", "Set the attribute value on an HTML element", "Keydown", "Set the text for an element"],
+//     incorrectAnswer1: ["var that;", "var i = 0", "1", "sort", "sort", "replace", "The user defined name on the tab in the browser", "Set the value of the inner HTML content", "Keyup", "Rewrite the element types"],
+//     incorrectAnswer2: ["var wrong;", "i<variableName.length", "-1", "push", "trim", "split", "All query selectors for buttons created in HTML", "Change the HTML structure", "Click", "Make the CSS available to the user"],
+//     incorrectAnswer3: ["var those;", "i++", "It is defined by the user", "split", "split", "unshift", "All saved local storage values", "Reduce the number of JS variables ", "Change", "Make sites more accessible for screen readers"]
+// };
+
+
+//Test question object//
+// var questionList = {
+//     questionNumber: ["Question 1", "Question 2", "Question 3"],
+//     question: ["What is your favorite number", "What is your favorite color?", "What is your favorite state of matter?"],
+//     correctAnswer: ["*0*", "*Blue*", "*Gas*"],
+//     incorrectAnswer1: ["1", "Red", "Solid"],
+//     incorrectAnswer2: ["2", "Pink", "Liquid"],
+//     incorrectAnswer3: ["3", "Yellow", "Plasma"]
+// };
