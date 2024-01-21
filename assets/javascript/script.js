@@ -47,12 +47,14 @@ var clearBtn = document.querySelector("#clear");
 
 // Function to present question and [randomized order of] multiple choice options on screen// 
 function presentQuestion(x) {
-    // Present the question number and question//
-    welcomeMessage.setAttribute("class", "welcomeMessage hide");
-    quizGroup.setAttribute("class", "quizGroup show");
-    advanceQuizBtn.textContent = "Next Question"
+    // Present the question number and question on page.//
     questionNumberOutput.textContent = questionList.questionNumber[x];
     questionOutput.textContent = questionList.question[x];
+
+    // Hide/show relevant content.//
+    advanceQuizBtn.textContent = "Next Question";
+    welcomeMessage.setAttribute("class", "welcomeMessage hide");
+    quizGroup.setAttribute("class", "quizGroup");
 
     // Create a new array with "correctAnswer", "incorrectAnswer1", incorrectAnswer2", or "incorrectAnswer3" in a random order.//
     var answerArrayMod0 = ["correctAnswer", "incorrectAnswer1", "incorrectAnswer2", "incorrectAnswer3"];
@@ -84,71 +86,65 @@ advanceQuizBtn.addEventListener("click", function () {
         enterScore();
     }
 
-    // Function to begin quiz and then advance questions. Will only work once per question.//
+    // Function to begin quiz and then advance questions. Should only work once per question.//
     function advance() {
         if (advanceQuizBtn.getAttribute("data-status") === "answered") {
             presentQuestion(count++);
+            selectionResult.textContent = "";
             advanceQuizBtn.setAttribute("data-status", "unanswered");
             highScoresBtn.setAttribute("class", "button hide");
-            selectionResult.textContent = "";
         }
         return;
     };
 
- 
     // Function to calculate final score.//
     function calcScore() {
         finalScore = Math.round(score / (quizLength) * 100);
         userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
         count++;
-        quizGroup.setAttribute("class", "quizGroup hide");
-        resultsGroup.setAttribute("class", "initials")
         advanceQuizBtn.textContent = "Submit Score"
         selectionResult.textContent = "";
+        quizGroup.setAttribute("class", "quizGroup hide");
+        resultsGroup.setAttribute("class", "initials")
         return;
     };
-
-
 
     // Function to return user to homescreen.//
     function enterScore() {
         if (initialsTxt.value === "") {
-            alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen.")
+            alert("Please enter your initials in the text box then click \"Submit Score\" to return to the home screen. You can view your high scores from the home screen.")
         } else {
             stageHOF();
             // Reset default values//
             count = 0;
             score = 0;
-            resultsGroup.setAttribute("class", "initials hide");
-            welcomeMessage.setAttribute("class", "welcomeMessage");
-            highScoresBtn.setAttribute("class", "button");
             initialsTxt.value = "";
             selectionResult.textContent = "";
             advanceQuizBtn.textContent = "Begin Quiz";
+            resultsGroup.setAttribute("class", "initials hide");
+            welcomeMessage.setAttribute("class", "welcomeMessage");
+            highScoresBtn.setAttribute("class", "button");
             return;
         };
     };
 });
 
-// Check the data-answer value for correct or incorrect and display result to user. Will only work once per question.//
+// Check the data-answer value for correct or incorrect and display result to user. Should only work once per question.//
 buttonChoices.forEach(function (buttonChoice) {
     buttonChoice.addEventListener("click", function (event) {
         if (advanceQuizBtn.getAttribute("data-status") === "unanswered") {
             var element = event.target;
             if (element.getAttribute("data-answer") === "correctAnswer") {
-                selectionResult.textContent = "CORRECT! Click Next Question button to advance.";
+                selectionResult.textContent = "CORRECT! Click \"Next Question\" button to advance.";
                 advanceQuizBtn.setAttribute("data-status", "answered");
                 score++;
             } else {
-                selectionResult.textContent = "WRONG! Click Next Question button to advance.";
+                selectionResult.textContent = "WRONG! Click \"Next Question\" button to advance.";
                 advanceQuizBtn.setAttribute("data-status", "answered");
             }
         }
     })
 });
-
-
-
 
 highScoresBtn.addEventListener("click", function () {
     if (highScoresList.getAttribute("data-visibility") === "hide") {
@@ -169,11 +165,11 @@ highScoresBtn.addEventListener("click", function () {
     }
 })
 
-clearBtn.addEventListener("click", function (){
+clearBtn.addEventListener("click", function () {
     localStorage.clear();
-    userInitials.innerHTML="";
-    userScore.innerHTML="";
-    userTime.innerHTML="";
+    userInitials.innerHTML = "";
+    userScore.innerHTML = "";
+    userTime.innerHTML = "";
 });
 
 // Production question object//
