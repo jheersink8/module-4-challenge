@@ -11,27 +11,39 @@ var questionList = {
 // -----------------------END OF CONTENT QUIZ MAKER SHOULD EDIT-----------------------//
 
 // Variables//
-// Counter variables// 
+
+// Counter variables (timer at top for quiz maker to modifiy)// 
 var count = 0;
 var score = 0;
-// Direct from HTML variables//
+
+// Welcome screen variables and message output//
 var welcomeMessage = document.querySelector(".welcomeMessage");
-var timeStartEl = document.getElementById("timeStart");
-var quizLengthEl = document.getElementById("quizLength");
+var quizLength = questionList.questionNumber.length;
+document.getElementById("quizLength").textContent = quizLength;
+document.getElementById("timeStart").textContent = timer;
+
+// Quiz control variables//
 var quizGroup = document.querySelector(".quizGroup");
 var questionNumberOutput = document.querySelector(".questionNumberOutput");
 var questionOutput = document.querySelector(".questionOutput");
 var buttonChoices = document.querySelectorAll(".buttonChoice");
+
+// Scoreboard output variables//
+var highScoresList = document.querySelector(".highScoresList");
+var userInitials = document.querySelector("#userInitials");
+var userScore = document.querySelector("#userScore");
+var userTime = document.querySelector("#userTime");
+
+// Results page variables//
+var resultsGroup = document.querySelector(".results");
+var userPrintOut = document.querySelector("#userPrintOut");
+var initialsTxt = document.querySelector("#inputText");
+
+// Button output message and button control variables//
 var selectionResult = document.getElementById("selectionResult");
 var advanceQuizBtn = document.getElementById("advanceQuiz");
 var highScoresBtn = document.querySelector("#highScores");
-var initialsTxt = document.querySelector("#inputText");
-var resultsGroup = document.querySelector(".results");
-var userPrintOut = document.querySelector("#userPrintOut");
-// Misc. variables for DRY and dynamic output//
-var quizLength = questionList.questionNumber.length;
-quizLengthEl.textContent = quizLength;
-timeStartEl.textContent = timer;
+var clearBtn = document.querySelector("#clear");
 
 // Function to present question and [randomized order of] multiple choice options on screen// 
 function presentQuestion(x) {
@@ -136,8 +148,7 @@ buttonChoices.forEach(function (buttonChoice) {
 });
 
 
-var highScoresList = document.querySelector(".highScoresList");
-var clearBtn = document.querySelector("#clear");
+
 
 highScoresBtn.addEventListener("click", function () {
     if (highScoresList.getAttribute("data-visibility") === "hide") {
@@ -187,9 +198,7 @@ clearBtn.addEventListener("click", function (){
 // };
 
 // Output List Variables for Scoreboard//
-var userInitials = document.querySelector("#userInitials");
-var userScore = document.querySelector("#userScore");
-var userTime = document.querySelector("#userTime");
+
 
 // Object Values//
 var hof = {
