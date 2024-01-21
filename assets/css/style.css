@@ -2,8 +2,18 @@
     background-color: grey;
 }
 
-.buttonSelection{
+.highScoresList{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.buttonGroup{
     display:flex;
     flex-direction: column;
 
+}
+
+.hide{
+    display:none;
 }
