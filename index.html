@@ -10,7 +10,6 @@
 
 <body>
     <main>
-
         <section class="welcomeMessage">
             <h3>This quiz is meant to test your knowledge of JavaScript basics. You will have <span
                     id="timeStart"></span> seconds to answer <span id="quizLength"></span> questions. But be
@@ -31,20 +30,7 @@
             </section>
         </section>
 
-        <section>
-            <p id="selectionResult"></p>
-            <button id="advanceQuiz" data-status="answered">Begin Quiz</button>
-            <button id="highScores">View High Scores</button>
-            <button id="clear hide">Clear Scoreboard</button>
-        </section>
-
-        <section>
-
-            <input class="initials hide" id="inputText" placeholder="Enter your initials here & click submit.">
-
-        </section>
-
-        <section class="highScoresList hide">
+        <section class="highScoresList hide" data-visibility="hide">
             <div>
                 <p>Initials</p>
                 <ul id="userInitials"></ul>
@@ -59,6 +45,21 @@
                 <p>Time Remaining</p>
                 <ul id="userTime"></ul>
             </div>
+        </section>
+
+
+
+        <section class="initials hide">
+            <h3>Quiz Results</h3>
+            <p id="userPrintOut"></p>
+            <input id="inputText" placeholder="Enter your initials here & click submit.">
+        </section>
+
+        <section>
+            <p id="selectionResult"></p>
+            <button id="advanceQuiz" class="button" data-status="answered">Begin Quiz</button>
+            <button id="highScores" class="button">View High Scores</button>
+            <button id="clear" class="button hide">Clear Scoreboard</button>
         </section>
 
     </main>

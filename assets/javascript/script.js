@@ -23,9 +23,11 @@ var questionNumberOutput = document.querySelector(".questionNumberOutput");
 var questionOutput = document.querySelector(".questionOutput");
 var buttonChoices = document.querySelectorAll(".buttonChoice");
 var selectionResult = document.getElementById("selectionResult");
-var advanceQuiz = document.getElementById("advanceQuiz");
-var highScores = document.querySelector("#highScores");
-var initialsTxt = document.querySelector(".initials");
+var advanceQuizBtn = document.getElementById("advanceQuiz");
+var highScoresBtn = document.querySelector("#highScores");
+var initialsTxt = document.querySelector("#inputText");
+var resultsGroup = document.querySelector(".initials");
+var userPrintOut = document.querySelector("#userPrintOut");
 // Misc. variables for DRY and dynamic output//
 var quizLength = questionList.questionNumber.length;
 quizLengthEl.textContent = quizLength;
@@ -36,7 +38,7 @@ function presentQuestion(x) {
     // Present the question number and question//
     welcomeMessage.setAttribute("class", "welcomeMessage hide");
     quizGroup.setAttribute("class", "quizGroup show");
-    advanceQuiz.textContent = "Next Question"
+    advanceQuizBtn.textContent = "Next Question"
     questionNumberOutput.textContent = questionList.questionNumber[x];
     questionOutput.textContent = questionList.question[x];
 
@@ -61,7 +63,7 @@ function presentQuestion(x) {
 };
 
 // Controls for advanceQuiz button. Function is contextual depending on user location in quiz.//
-advanceQuiz.addEventListener("click", function () {
+advanceQuizBtn.addEventListener("click", function () {
     if (count < quizLength) {
         advance();
     } else if (count === quizLength) {
@@ -72,23 +74,25 @@ advanceQuiz.addEventListener("click", function () {
 
     // Function to begin quiz and then advance questions. Will only work once per question.//
     function advance() {
-        if (advanceQuiz.getAttribute("data-status") === "answered") {
+        if (advanceQuizBtn.getAttribute("data-status") === "answered") {
             presentQuestion(count++);
-            advanceQuiz.setAttribute("data-status", "unanswered");
-            highScores.setAttribute("class", "highScores hide");
+            advanceQuizBtn.setAttribute("data-status", "unanswered");
+            highScoresBtn.setAttribute("class", "button hide");
             selectionResult.textContent = "";
         }
         return;
     };
 
+ 
     // Function to calculate final score.//
     function calcScore() {
         finalScore = Math.round(score / (quizLength) * 100);
-        selectionResult.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
+        userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
         count++;
         quizGroup.setAttribute("class", "quizGroup hide");
-        initialsTxt.setAttribute("class", "initials")
-        advanceQuiz.textContent = "Submit Score"
+        resultsGroup.setAttribute("class", "initials")
+        advanceQuizBtn.textContent = "Submit Score"
+        selectionResult.textContent = "";
         return;
     };
 
@@ -103,12 +107,12 @@ advanceQuiz.addEventListener("click", function () {
             // Reset default values//
             count = 0;
             score = 0;
-            initialsTxt.setAttribute("class", "initials hide");
+            resultsGroup.setAttribute("class", "initials hide");
             welcomeMessage.setAttribute("class", "welcomeMessage");
-            highScores.setAttribute("class", "highScores");
+            highScoresBtn.setAttribute("class", "button");
             initialsTxt.value = "";
             selectionResult.textContent = "";
-            advanceQuiz.textContent = "Begin Quiz";
+            advanceQuizBtn.textContent = "Begin Quiz";
             return;
         };
     };
@@ -117,18 +121,48 @@ advanceQuiz.addEventListener("click", function () {
 // Check the data-answer value for correct or incorrect and display result to user. Will only work once per question.//
 buttonChoices.forEach(function (buttonChoice) {
     buttonChoice.addEventListener("click", function (event) {
-        if (advanceQuiz.getAttribute("data-status") === "unanswered") {
+        if (advanceQuizBtn.getAttribute("data-status") === "unanswered") {
             var element = event.target;
             if (element.getAttribute("data-answer") === "correctAnswer") {
                 selectionResult.textContent = "CORRECT! Click Next Question button to advance.";
-                advanceQuiz.setAttribute("data-status", "answered");
+                advanceQuizBtn.setAttribute("data-status", "answered");
                 score++;
             } else {
                 selectionResult.textContent = "WRONG! Click Next Question button to advance.";
-                advanceQuiz.setAttribute("data-status", "answered");
+                advanceQuizBtn.setAttribute("data-status", "answered");
             }
         }
     })
+});
+
+
+var highScoresList = document.querySelector(".highScoresList");
+var clearBtn = document.querySelector("#clear");
+
+highScoresBtn.addEventListener("click", function () {
+    if (highScoresList.getAttribute("data-visibility") === "hide") {
+        highScoresList.setAttribute("data-visibility", "show");
+        highScoresList.setAttribute("class", "highScoresList");
+        highScoresBtn.textContent = "Return Home";
+        welcomeMessage.setAttribute("class", "welcomeMessage hide");
+        advanceQuizBtn.setAttribute("class", "button hide");
+        clearBtn.setAttribute("class", "button");
+
+    } else {
+        highScoresList.setAttribute("data-visibility", "hide");
+        highScoresList.setAttribute("class", "highScoresList hide");
+        highScoresBtn.textContent = "View High Scores";
+        welcomeMessage.setAttribute("class", "welcomeMessage");
+        advanceQuizBtn.setAttribute("class", "button");
+        clearBtn.setAttribute("class", "button hide");
+    }
+})
+
+clearBtn.addEventListener("click", function (){
+    localStorage.clear();
+    userInitials.innerHTML="";
+    userScore.innerHTML="";
+    userTime.innerHTML="";
 });
 
 // Production question object//
@@ -171,7 +205,7 @@ function stageHOF() {
 
     if (initialsList === "") {
         return;
-    } 
+    }
     hof.initialsObj.push(initialsList);
     hof.scoreObj.push(scoreList);
     hof.timeObj.push(timeList);
@@ -181,12 +215,12 @@ function stageHOF() {
 };
 
 function save() {
-localStorage.setItem("hof", JSON.stringify(hof));
+    localStorage.setItem("hof", JSON.stringify(hof));
 }
 
 function load() {
     userInitials.innerHTML = "";
-    for (var i = 0; i<hof.initialsObj.length; i++) {
+    for (var i = 0; i < hof.initialsObj.length; i++) {
         var initialsOut = hof.initialsObj[i];
         var li = document.createElement("li");
         li.textContent = initialsOut;
@@ -194,7 +228,7 @@ function load() {
     }
 
     userScore.innerHTML = "";
-    for (var i = 0; i<hof.scoreObj.length; i++) {
+    for (var i = 0; i < hof.scoreObj.length; i++) {
         var scoreOut = hof.scoreObj[i];
         var li = document.createElement("li");
         li.textContent = scoreOut;
@@ -202,7 +236,7 @@ function load() {
     }
 
     userTime.innerHTML = "";
-    for (var i = 0; i<hof.timeObj.length; i++) {
+    for (var i = 0; i < hof.timeObj.length; i++) {
         var timeOut = hof.timeObj[i];
         var li = document.createElement("li");
         li.textContent = timeOut;
