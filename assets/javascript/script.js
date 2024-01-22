@@ -1,12 +1,12 @@
 // NOTE TO QUIZ-MAKER: To add more questions to quiz, simply add the desired value at the end of each object array below using the syntax of -- , "Content" -- (minus the dashes). Also, modify the value of the timer in --var timer-- below. The page will dynamically update to accommodate the added questions and time parameters.// 
 var timerValue = 90;
 var questionList = {
-    questionNumber: ["Question 1", "Question 2", "Question 3"],
-    question: ["What is your favorite number", "What is your favorite color?", "What is your favorite state of matter?"],
-    correctAnswer: ["*0*", "*Blue*", "*Gas*"],
-    incorrectAnswer1: ["1", "Red", "Solid"],
-    incorrectAnswer2: ["2", "Pink", "Liquid"],
-    incorrectAnswer3: ["3", "Yellow", "Plasma"]
+    questionNumber: ["Question 1", "Question 2"],
+    question: ["What is your favorite number", "What is your favorite color?"],
+    correctAnswer: ["*0*", "*Blue*"],
+    incorrectAnswer1: ["1", "Red"],
+    incorrectAnswer2: ["2", "Pink"],
+    incorrectAnswer3: ["3", "Yellow"]
 };
 // -----------------------END OF CONTENT QUIZ MAKER SHOULD EDIT-----------------------//
 
@@ -20,7 +20,7 @@ var score = 0;
 var welcomeMessage = document.querySelector(".welcomeMessage");
 var quizLength = questionList.questionNumber.length;
 document.getElementById("quizLength").textContent = quizLength;
-document.getElementById("timeStart").textContent = timer;
+document.getElementById("timeStart").textContent = timerValue;
 
 // Timer variables//
 var timerBox = document.querySelector(".timerBox");
@@ -66,7 +66,7 @@ function presentQuestion(x) {
 
     // Hide/show relevant content.//
     advanceQuizBtn.textContent = "Next Question";
-    welcomeMessage.setAttribute("class", "welcomeMessage hide");
+    welcomeMessage.setAttribute("class", "hide");
     quizGroup.setAttribute("class", "quizGroup");
 
     // Create a new array with "correctAnswer", "incorrectAnswer1", incorrectAnswer2", or "incorrectAnswer3" in a random order.//
@@ -109,7 +109,7 @@ function advance() {
         presentQuestion(count++);
         selectionResult.textContent = "";
         advanceQuizBtn.setAttribute("data-status", "unanswered");
-        highScoresBtn.setAttribute("class", "button hide");
+        highScoresBtn.setAttribute("class", "hide");
         timerBox.setAttribute("class", "timerBox");
     }
     return;
@@ -122,10 +122,10 @@ function calcScore() {
     count++;
     advanceQuizBtn.textContent = "Submit Score"
     selectionResult.textContent = "";
-    quizGroup.setAttribute("class", "quizGroup hide");
+    quizGroup.setAttribute("class", "hide");
     resultsGroup.setAttribute("class", "results");
     advanceQuizBtn.setAttribute("data-status", "answered")
-    timerBox.setAttribute("class", "timerBox hide")
+    timerBox.setAttribute("class", "hide")
     return;
 };
 
@@ -143,7 +143,7 @@ function enterScore() {
         selectionResult.textContent = "";
         advanceQuizBtn.textContent = "Begin Quiz";
         timeLeft.textContent = timer;
-        resultsGroup.setAttribute("class", "results hide");
+        resultsGroup.setAttribute("class", "hide");
         welcomeMessage.setAttribute("class", "welcomeMessage");
         highScoresBtn.setAttribute("class", "button");
         return;
@@ -175,13 +175,13 @@ highScoresBtn.addEventListener("click", function () {
         clearBtn.setAttribute("class", "button");
         highScoresList.setAttribute("data-visibility", "show");
         highScoresList.setAttribute("class", "highScoresList");
-        welcomeMessage.setAttribute("class", "welcomeMessage hide");
-        advanceQuizBtn.setAttribute("class", "button hide");
+        welcomeMessage.setAttribute("class", "hide");
+        advanceQuizBtn.setAttribute("class", "hide");
     } else {
         highScoresBtn.textContent = "View High Scores";
-        clearBtn.setAttribute("class", "button hide");
+        clearBtn.setAttribute("class", "hide");
         highScoresList.setAttribute("data-visibility", "hide");
-        highScoresList.setAttribute("class", "highScoresList hide");
+        highScoresList.setAttribute("class", "hide");
         welcomeMessage.setAttribute("class", "welcomeMessage");
         advanceQuizBtn.setAttribute("class", "button");
     }
@@ -189,13 +189,16 @@ highScoresBtn.addEventListener("click", function () {
 
 // Clear button to clear high scores.//
 clearBtn.addEventListener("click", function () {
-    localStorage.clear();
-    hof.initialsObj.splice(0, hof.initialsObj.length);
-    hof.scoreObj.splice(0, hof.scoreObj.length);
-    hof.timeObj.splice(0, hof.timeObj.length);
-    userInitials.innerHTML = "";
-    userScore.innerHTML = "";
-    userTime.innerHTML = "";
+    var wipe = window.confirm("Are you sure you want to clear the high scores?");
+    if (wipe) {
+        localStorage.clear();
+        hof.initialsObj.splice(0, hof.initialsObj.length);
+        hof.scoreObj.splice(0, hof.scoreObj.length);
+        hof.timeObj.splice(0, hof.timeObj.length);
+        userInitials.innerHTML = "";
+        userScore.innerHTML = "";
+        userTime.innerHTML = "";
+    }
 });
 
 // Function to save/load local data to high scroe screen.//
@@ -260,7 +263,7 @@ init();
 // Timer countdown function//
 function countdown() {
     var timeInterval = setInterval(function () {
-        timer--;
+        timer;
         timeLeft.textContent = timer;
         if (selectionResult) {
 

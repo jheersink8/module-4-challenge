@@ -1,19 +1,212 @@
-*{
-    background-color: grey;
+:root {
+    --fontcolor: #0F1035;
+    --firstbackground: #DCF2F1;
+    --borders: #7FC7D9;
+    --lastbackgroundtop: #365486;
+    --lastbackgroundbottom: #94abd1;
 }
 
-.highScoresList{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
+* {
+    margin: 0px;
+    color: var(--fontcolor);
+    font-family: 'Roboto Slab', serif;
 }
 
-.buttonGroup{
-    display:flex;
+header {
+    background-color: var(--firstbackground);
+    padding: 25px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    width: fit-content;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+body {
+    display: flex;
     flex-direction: column;
-
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0px;
+    padding-top: 20px;
+    box-sizing: border-box;
+    background-image: linear-gradient(var(--lastbackgroundtop) 0%,
+            var(--lastbackgroundbottom) 100%);
+    background-attachment: fixed;
 }
 
-.hide{
-    display:none;
+/* Home screen styles */
+.welcomeMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    margin: 60px 0px 35px 0px;
+    background-color: var(--firstbackground);
+    width: 80%;
+    box-sizing: border-box;
+}
+
+/* High score styles */
+.hsTitle{
+    font-size: 30px;
+    padding-bottom: 13px;
+}
+
+.highScoresList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    margin: 60px 0px 35px 0px;
+    background-color: var(--firstbackground);
+    width: 60%;
+}
+
+.highScoresData {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.highScoresData div p{
+    font-weight: 700;
+    text-align: center;
+    font-size: larger;
+}
+
+.highScoresData div ul li{
+    list-style-type: none;
+    padding: 0px 60px 0px 60px;
+    text-align: center;
+}
+
+ul li:nth-child(odd) {
+    background-color: var(--fontcolor);
+    color:var(--firstbackground);    
+}
+
+ul li:nth-child(even) {
+    background-color: var(--firstbackground);
+    color:var(--font);    
+}
+
+ul{
+    padding-inline-start: 0px;
+}
+
+
+/* Quiz Styling */
+
+.timerBox{
+    background-color: var(--firstbackground);
+    padding: 25px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    width: fit-content;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+
+
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.hide {
+    display: none;
+}
+
+
+
+.questionNumberOutput {
+    text-align: center;
+    font-size: 35px;
+    padding: 20px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.questionOutput {
+    font-size: 23px;
+    padding: 20px;
+    width: fit-content;
+    text-align: center;
+}
+
+.button {
+    color: var(--firstbackground);
+    background-color: var(--fontcolor);
+    border: 2px solid var(--borders);
+    border-radius: 8px;
+    height: 70px;
+    width: 230px;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px 15px 0px 15px;
+}
+
+.ButtonGroup {
+    border: 3px solid red;
+    margin: 9px 0px 9px 0px;
+    width: 75%;
+}
+
+.buttonChoice {
+    color: var(--firstbackground);
+    background-color: var(--fontcolor);
+    padding-left: 30px;
+    border: 2px solid var(--borders);
+    border-radius: 8px;
+    height: 70px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 9px 0px 9px 0px;
+    text-align: left;
+}
+
+
+
+
+
+
+/* ANIMATIONS DO LAST */
+.fadeOut {
+    animation: fadeOut 1s ease-out;
+}
+
+.fadeIn {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }

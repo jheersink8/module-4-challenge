@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300&family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>JavaScript Quiz</title>
 </head>
@@ -15,18 +18,19 @@
 
     <!-- Intro message that is only present on start screen -->
     <section class="welcomeMessage">
-        <h2>This quiz is meant to test your knowledge of JavaScript basics. You will have <span id="timeStart"></span>
-            seconds to answer <span id="quizLength"></span> questions. But be
+        <h2>This quiz is meant to test your knowledge of JavaScript basics. You will have <span id="timeStart"
+                style="color: red;"></span>
+            seconds to answer <span id="quizLength" style="color: red;"></span> questions. But be
             warned! Each question you answer wrong subtracts 15 seconds from the timer.
             </br>
             </br>
             Make it to the end either by answering the last question or running out of time. Good luck!</h2>
     </section>
 
-<section class="timerBox hide">
-    <h3>Time Remaining</h3>
-    <p id="timeLeft"></p>
-</section>
+    <section class="timerBox hide">
+        <h3>Time Remaining</h3>
+        <p id="timeLeft"></p>
+    </section>
 
     <!-- Controller for quiz. Displays question number, question, and multiple choice options. -->
     <section class="quizGroup hide">
@@ -42,18 +46,22 @@
 
     <!-- High Score display area. Hidden when page loads. Only to be accessible from welcome message screen -->
     <section class="highScoresList hide" data-visibility="hide">
-        <div>
-            <p>Initials</p>
-            <ul id="userInitials"></ul>
-        </div>
-        <div>
-            <p>Score</p>
-            <ul id="userScore"></ul>
-        </div>
-        <div>
-            <p>Time Remaining</p>
-            <ul id="userTime"></ul>
-        </div>
+
+        <h4 class="hsTitle">High Scores (recent on top)</h4>
+        <section class="highScoresData">
+            <div>
+                <p>Initials</p>
+                <ul id="userInitials"></ul>
+            </div>
+            <div>
+                <p>Score</p>
+                <ul id="userScore"></ul>
+            </div>
+            <div>
+                <p>Time Remaining</p>
+                <ul id="userTime"></ul>
+            </div>
+        </section>
     </section>
 
     <!-- User results page -->
