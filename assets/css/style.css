@@ -214,24 +214,12 @@ ul {
 }
 
 
-
-
-
-
-
-
-
-
-
+/* Class to hide content on page via JavaScript*/
 .hide {
     display: none;
 }
 
-
-
-
-
-
+/* Button styling */
 .button {
     color: var(--firstbackground);
     background-color: var(--fontcolor);
@@ -258,6 +246,23 @@ ul {
 
 
 /* ANIMATIONS DO LAST */
+.buttonChoice:hover{
+    color: var(--fontcolor);
+    background-color: var(--firstbackground);
+    border: 2px solid var(--borders);
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 8px;
+    transition:all 0.2s ease-in-out;
+}
+.button:hover{
+    color: var(--fontcolor);
+    background-color: var(--firstbackground);
+    border: 2px solid var(--borders);
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 8px;
+    transition:all 0.2s ease-in-out;
+}
+
 .fadeOut {
     animation: fadeOut 1s ease-out;
 }

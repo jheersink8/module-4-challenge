@@ -1,12 +1,12 @@
 // NOTE TO QUIZ-MAKER: To add more questions to quiz, simply add the desired value at the end of each object array below using the syntax of -- , "Content" -- (minus the dashes). Also, modify the value of the timer in --var timer-- below. The page will dynamically update to accommodate the added questions and time parameters.// 
 var timerValue = 90;
 var questionList = {
-    questionNumber: ["Question 1", "Question 2"],
-    question: ["What is your favorite number", "What is your favorite color?"],
-    correctAnswer: ["*0*", "*Blue*"],
-    incorrectAnswer1: ["1", "Red"],
-    incorrectAnswer2: ["2", "Pink"],
-    incorrectAnswer3: ["3", "Yellow"]
+    questionNumber: ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5", "Question 6", "Question 7", "Question 8", "Question 9", "Question 10"],
+    question: ["Which of the following is not a proper variable in JavaScript?", "A for loop commonly contains all of the following except:", "What is the starting index point of an array?", "The __________ method will remove the white space from either side of a string.", "The __________ method will add an element to the end of an array.", "Which method would best be used to combine the values of two arrays into one array?", "Console.log(document.body) will return:", "The setAttribute method is used to:", "Which event listener listens for a key being pressed?", "The textContent property is used to:"],
+    correctAnswer: ["var this;", "i=variableName.length", "0", "trim", "push", "concat", "Everything in the body element of the HTML", "Set the attribute value on an HTML element", "Keydown", "Set the text for an element"],
+    incorrectAnswer1: ["var that;", "var i = 0", "1", "sort", "sort", "replace", "The user defined name on the tab in the browser", "Set the value of the inner HTML content", "Keyup", "Rewrite the element types"],
+    incorrectAnswer2: ["var wrong;", "i<variableName.length", "-1", "push", "trim", "split", "All query selectors for buttons created in HTML", "Change the HTML structure", "Click", "Make the CSS available to the user"],
+    incorrectAnswer3: ["var those;", "i++", "It is defined by the user", "split", "split", "unshift", "All saved local storage values", "Reduce the number of JS variables ", "Change", "Make sites more accessible for screen readers"]
 };
 // -----------------------END OF CONTENT QUIZ MAKER SHOULD EDIT-----------------------//
 
@@ -95,9 +95,17 @@ advanceQuizBtn.addEventListener("click", function () {
         advance();
         countdown();
     } else if (count > 0 && count < quizLength) {
-        advance();
+        if (advanceQuizBtn.getAttribute("data-status") === "unanswered") {
+            alert("Please answer this question before proceeding to the next question.")
+        } else {
+            advance();
+        };
     } else if (count === quizLength) {
-        calcScore();
+        if (advanceQuizBtn.getAttribute("data-status") === "unanswered") {
+            alert("Please answer this question before proceeding to the next question.")
+        } else {
+            calcScore();
+        }
     } else {
         enterScore();
     }
@@ -188,6 +196,7 @@ highScoresBtn.addEventListener("click", function () {
         welcomeMessage.setAttribute("class", "welcomeMessage");
         advanceQuizBtn.setAttribute("class", "button");
     }
+    emptyHS();
 })
 
 // Clear button to clear high scores.//
@@ -201,6 +210,8 @@ clearBtn.addEventListener("click", function () {
         userInitials.innerHTML = "";
         userScore.innerHTML = "";
         userTime.innerHTML = "";
+        emptyHS();
+
     }
 });
 
@@ -252,7 +263,25 @@ function load() {
         li.textContent = timeOut;
         userTime.appendChild(li);
     }
-}
+};
+
+// Function to put a message to the user in the High Score area if there is no data.//
+function emptyHS() {
+    var emptyHS1 = document.getElementById("emptyHS1");
+    var emptyHS2 = document.getElementById("emptyHS2");
+    var emptyHS3 = document.getElementById("emptyHS3");
+    if (hof.initialsObj.length === 0) {
+        emptyHS1.textContent = "";
+        emptyHS2.textContent = "";
+        emptyHS3.textContent = "";
+        document.querySelector(".hsTitle").textContent = "Play the game to see your high score here!";
+    } else {
+        document.querySelector(".hsTitle").textContent = "High Scores (recent on top)";
+        emptyHS1.textContent = "Initials";
+        emptyHS2.textContent = "Score";
+        emptyHS3.textContent = "Time Remaining";
+    }
+};
 
 function init() {
     var oldHOF = JSON.parse(localStorage.getItem("hof"));
@@ -266,12 +295,12 @@ init();
 // Timer countdown function//
 function countdown() {
     var timeInterval = setInterval(function () {
-        timer;
+        timer--;
         timeLeft.textContent = timer;
         if (selectionResult) {
 
         }
-        if (timer === 0) {
+        if (timer <= 0) {
             clearInterval(timeInterval);
             count = quizLength;
             calcScore();
@@ -288,6 +317,7 @@ function timerPenalty() {
     var penalty = Math.max(currentTime - 15, 0);
     timer = penalty;
 };
+
 
 // Production question object//
 // var questionList = {
