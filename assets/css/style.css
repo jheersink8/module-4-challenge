@@ -13,15 +13,21 @@
 }
 
 header {
+    display: flex;
+
+}
+
+h1 {
+    position: relative;
     background-color: var(--firstbackground);
     padding: 25px;
     border: 3px solid var(--borders);
     border-radius: 8px;
     width: fit-content;
     text-align: center;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 700;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 body {
@@ -52,7 +58,7 @@ body {
 }
 
 /* High score styles */
-.hsTitle{
+.hsTitle {
     font-size: 30px;
     padding-bottom: 13px;
 }
@@ -76,13 +82,13 @@ body {
     width: 100%;
 }
 
-.highScoresData div p{
+.highScoresData div p {
     font-weight: 700;
     text-align: center;
     font-size: larger;
 }
 
-.highScoresData div ul li{
+.highScoresData div ul li {
     list-style-type: none;
     padding: 0px 60px 0px 60px;
     text-align: center;
@@ -90,39 +96,132 @@ body {
 
 ul li:nth-child(odd) {
     background-color: var(--fontcolor);
-    color:var(--firstbackground);    
+    color: var(--firstbackground);
 }
 
 ul li:nth-child(even) {
     background-color: var(--firstbackground);
-    color:var(--font);    
+    color: var(--font);
 }
 
-ul{
+ul {
     padding-inline-start: 0px;
 }
 
 
 /* Quiz Styling */
-
-.timerBox{
-    background-color: var(--firstbackground);
-    padding: 25px;
-    border: 3px solid var(--borders);
-    border-radius: 8px;
-    width: fit-content;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 700;
-    margin-top: 40px;
+.quizGroup {
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
+.timerBox {
+    position: relative;
+    background-color: var(--firstbackground);
+    padding: 20px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px;
+    height: fit-content;
+}
 
+.questionsGroup {
+    background-color: var(--firstbackground);
+    padding: 20px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px 40px 15px 40px;
+    height: fit-content;
+    width: 100%;
+}
+
+.questionNumberOutput {
+    padding: 5px 0px 0px 15px;
+    text-align: center;
+    font-size: 35px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.questionOutput {
+    font-size: 23px;
+    padding: 10px;
+    width: fit-content;
+}
+
+.buttonChoice {
+    color: var(--firstbackground);
+    background-color: var(--fontcolor);
+    padding: 12px 0px 12px 30px;
+    border: 2px solid var(--borders);
+    border-radius: 8px;
+    height: fit-content;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 400;
+    margin: 2px 0px 5px 0px;
+    text-align: left;
+}
 
 .buttonGroup {
     display: flex;
     flex-direction: column;
+    width: 86%;
+    flex-wrap: wrap;
 }
+
+#selectionResult {
+    margin-top: 10px;
+    text-align: center;
+    font-size: larger;
+}
+
+
+
+
+/* Results Page Style */
+.results{
+    position: relative;
+    background-color: var(--firstbackground);
+    padding: 20px;
+    border: 3px solid var(--borders);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px;
+    height: fit-content;
+}
+
+.results h4{
+    font-size: xx-large;
+}
+
+#userPrintOut{
+    margin: 23px;
+}
+
+#inputText{
+    width: 24%;
+    height: 30px;
+    margin: 22px 0px 14px 0px;
+}
+
+
+
+
+
+
+
+
+
+
 
 .hide {
     display: none;
@@ -130,20 +229,8 @@ ul{
 
 
 
-.questionNumberOutput {
-    text-align: center;
-    font-size: 35px;
-    padding: 20px;
-    border-radius: 8px;
-    width: fit-content;
-}
 
-.questionOutput {
-    font-size: 23px;
-    padding: 20px;
-    width: fit-content;
-    text-align: center;
-}
+
 
 .button {
     color: var(--firstbackground);
@@ -163,19 +250,7 @@ ul{
     width: 75%;
 }
 
-.buttonChoice {
-    color: var(--firstbackground);
-    background-color: var(--fontcolor);
-    padding-left: 30px;
-    border: 2px solid var(--borders);
-    border-radius: 8px;
-    height: 70px;
-    width: 100%;
-    font-size: 20px;
-    font-weight: 400;
-    margin: 9px 0px 9px 0px;
-    text-align: left;
-}
+
 
 
 

@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300&family=Roboto+Slab&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>JavaScript Quiz</title>
 </head>
@@ -14,6 +16,10 @@
 <body>
     <header>
         <h1>JavaScript Quiz</h1>
+        <section class="timerBox hide">
+            <h3>Time Remaining</h3>
+            <p id="timeLeft"></p>
+        </section>
     </header>
 
     <!-- Intro message that is only present on start screen -->
@@ -27,21 +33,25 @@
             Make it to the end either by answering the last question or running out of time. Good luck!</h2>
     </section>
 
-    <section class="timerBox hide">
-        <h3>Time Remaining</h3>
-        <p id="timeLeft"></p>
-    </section>
-
-    <!-- Controller for quiz. Displays question number, question, and multiple choice options. -->
+    <!-- Controller for quiz. Displays timer, question number, question, and multiple choice options. -->
     <section class="quizGroup hide">
-        <h3 class="questionNumberOutput"></h3>
-        <h3 class="questionOutput"></h3>
-        <section class="buttonGroup">
-            <button class="buttonChoice" data-answer=""></button>
-            <button class="buttonChoice" data-answer=""></button>
-            <button class="buttonChoice" data-answer=""></button>
-            <button class="buttonChoice" data-answer=""></button>
+
+        <section class="questionsGroup">
+            <h3 class="questionNumberOutput"></h3>
+            <h3 class="questionOutput"></h3>
+
+            <section class="buttonGroup">
+                <button class="buttonChoice" data-answer=""></button>
+                <button class="buttonChoice" data-answer=""></button>
+                <button class="buttonChoice" data-answer=""></button>
+                <button class="buttonChoice" data-answer=""></button>
+            </section>
+
+            <p id="selectionResult"></p>
         </section>
+
+
+
     </section>
 
     <!-- High Score display area. Hidden when page loads. Only to be accessible from welcome message screen -->
@@ -67,13 +77,13 @@
     <!-- User results page -->
     <section class="results hide">
         <h4>Quiz Results</h4>
-        <p id="userPrintOut"></p>
+        <p id="userPrintOut">You scored a <span id="percentScore" style="color:red;"></span>% on the quiz and you had <span id="timeScore" style="color:red;"></span> seconds left. Enter your initials below and click "Submit Score" to return to the home screen."</p>
         <input id="inputText" placeholder="Enter your initials here & click submit.">
     </section>
 
     <!-- Button Controls. Should always be at bottom of page. -->
     <section>
-        <p id="selectionResult"></p>
+
         <button id="advanceQuiz" class="button" data-status="answered">Begin Quiz</button>
         <button id="highScores" class="button">View High Scores</button>
         <button id="clear" class="button hide">Clear Scoreboard</button>

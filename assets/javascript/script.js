@@ -118,7 +118,10 @@ function advance() {
 // Function to calculate final score.//
 function calcScore() {
     finalScore = Math.round(score / (quizLength) * 100);
-    userPrintOut.textContent = "You scored a " + finalScore + "% on the quiz and you had " + timer + " second(s) left. Enter your initials below and click \"Submit Score\" to return to the home screen.";
+    var percentScore = document.getElementById("percentScore");
+    var timeScore = document.getElementById("timeScore");
+    percentScore.textContent = finalScore;
+    timeScore.textContent = timer;
     count++;
     advanceQuizBtn.textContent = "Submit Score"
     selectionResult.textContent = "";
