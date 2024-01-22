@@ -238,14 +238,7 @@ ul {
     width: 75%;
 }
 
-
-
-
-
-
-
-
-/* ANIMATIONS DO LAST */
+/* ANIMATIONS */
 .buttonChoice:hover{
     color: var(--fontcolor);
     background-color: var(--firstbackground);
@@ -263,6 +256,8 @@ ul {
     transition:all 0.2s ease-in-out;
 }
 
+
+/* Unused [possilbe animations for future use] */
 .fadeOut {
     animation: fadeOut 1s ease-out;
 }
